@@ -11,7 +11,11 @@ public class Main {
         int random1=game.randomCardValue(11,2);
         int random2=game.randomCardValue(11,2);
         game.playerTotal=random1+random2;
-// summa
+
+        if (game.playerTotal>21) {
+            System.out.println("Your total score is over 21. YOU ARE LOOSER!!");
+            return;
+        }
         System.out.println("You get a " + random1+ " and a "+random2);
         System.out.println("You total is "+game.playerTotal+"\n");
 
@@ -52,7 +56,10 @@ public class Main {
 
                 System.out.println("Ok, dealer's turn.\n");
                 System.out.println("His hidden card was a " +r4+". His total was "+ game.dealerTotal+".");
-// summa
+                if(game.dealerTotal>21){
+                    System.out.println("Delear got over 21. YOU WIN!!");
+                    break;
+                }
                 dealerAction(game);
                 break;
 

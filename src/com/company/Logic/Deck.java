@@ -1,16 +1,26 @@
-package com.company;
+package com.company.Logic;
 
 
 
-import java.util.Random;
+import java.util.*;
 
 public class Deck {
+
+    //Create a List of cards
+//    List<Card> deckList = ... //A method to create your 52 cards
+
+    // Collections.shuffle(deckList);
+//    Deque<Card> deck = new ArrayDeque<Card>(deckList);
+
+
+
+
 
     /*Size of the deck which can handle cards*/
     private int size;
 
     /*Collections of cards*/
-    private Card cards[];
+    private List<Card> cards;
 
 
     /*Remaining number of cards in the deck*/
@@ -23,13 +33,13 @@ public class Deck {
     public Deck(){
         size=52;
         currentCount=0;
-        cards = new Card[size];
         suits=Suit.values();
         values=Value.values();
 
+        cards = new ArrayList<Card>();
         for(int i =0 ; i<suits.length;i++){
             for(int j =0 ; j<values.length;j++){
-                cards[currentCount++] = new Card(suits[i],values[j]);
+                cards.add(new Card(suits[i],values[j]));
             }
 
         }
@@ -37,16 +47,9 @@ public class Deck {
 
     public void shuffle(){
 
-        Random rand= new Random();
-
-
-        for(int i=0;i<currentCount*10;i++){
-            int cardOne=rand.nextInt(currentCount);
-            int cardTwo=rand.nextInt(currentCount);
-
-            Card temp=cards[cardOne];
-            cards[cardOne]=cards[cardTwo];
-            cards[cardTwo]=temp;
+        Collections.shuffle(cards);
+        while (!cards.isEmpty()){
+            System.out.println(cards.get(0));
         }
 
     }
@@ -58,7 +61,7 @@ public class Deck {
         StringBuilder sb=new StringBuilder();
 
         for(int i=0;i < currentCount;i++){
-            sb.append(cards[i]);
+            sb.append(cards.get(i));
             sb.append(" ");
         }
 
@@ -67,25 +70,25 @@ public class Deck {
 
     /*  Sorting the cards based on the suit and then numbers.
         This sorting is using Bucket Sort to sort the cards runtime= O(n) space=O(n);*/
-    public void sort(){
-
-        Card bucketCards[][]= new Card[suits.length][values.length];
-
-        for(int i=0;i<currentCount;i++){
-            bucketCards[cards[i].getSuit().ordinal()][cards[i].getValue().ordinal()]=cards[i];
-        }
-
-        int pointer=0;
-
-        for(int i=0;i<suits.length;i++){
-            for(int j=0;j<values.length;j++){
-                if(bucketCards[i][j]!=null)
-                    cards[pointer++]=bucketCards[i][j];
-            }
-        }
-
-
-    }
+//    public void sort(){
+//
+//        Card bucketCards[][]= new Card[suits.length][values.length];
+//
+//        for(int i=0;i<currentCount;i++){
+//            bucketCards[cards[i].getSuit().ordinal()][cards[i].getValue().ordinal()]=cards[i];
+//        }
+//
+//        int pointer=0;
+//
+//        for(int i=0;i<suits.length;i++){
+//            for(int j=0;j<values.length;j++){
+//                if(bucketCards[i][j]!=null)
+//                    cards[pointer++]=bucketCards[i][j];
+//            }
+//        }
+//
+//
+//    }
 
     /*This will reset the deck. i.e it will put back all the cards in the deck if it has been dealt.*/
     public void resetdesk(){
@@ -98,7 +101,7 @@ public class Deck {
         for(int i=0;i<suits.length;i++){
 
             for(int j=0;j<values.length;j++){
-                System.out.print(cards[cardPointer++]+" ");
+                System.out.print(cards.get(cardPointer++)+" ");
             }
 
             System.out.println("\n");

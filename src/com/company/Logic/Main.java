@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Logic;
 
 import java.util.Scanner;
 
@@ -6,6 +6,10 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Nadya's shitty program!\n");
+        Deck deck = new Deck();
+        deck.shuffle();
+        System.out.println(deck);
+
         BlackJackLogic game =new BlackJackLogic();
 
         int random1=game.randomCardValue(11,2);
